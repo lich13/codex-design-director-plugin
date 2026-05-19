@@ -62,10 +62,7 @@ Use this skill to turn bundled `awesome-design-md` directions and the bundled `f
 - `references/frontend-design/upstream-version.json`: Current upstream path, ref, update time, and blob SHA for `frontend-design`.
 - `scripts/list_styles.py`: Lists available style slugs and short descriptions.
 - `scripts/apply_design_md.py`: Copies a selected bundled `DESIGN.md` into a project root.
-- `scripts/update_upstream.py`: Checks or refreshes bundled references from the upstream repository.
-- `scripts/update_frontend_design.py`: Checks or refreshes the bundled `frontend-design` guidance.
-- `scripts/auto_update.py`: Updates, validates, commits, and pushes all upstream reference changes for repository automation.
-- `.github/workflows/sync-upstream.yml`: GitHub Actions workflow that runs the upstream sync on a schedule and by manual dispatch.
+- `.github/workflows/sync-upstream.yml`: GitHub Actions workflow with inline online sync logic for `awesome-design-md` and `frontend-design`.
 
 ## Useful Commands
 
@@ -87,31 +84,11 @@ Install one style into the current project:
 python3 /Users/gosu/.codex/skills/design-md/scripts/apply_design_md.py linear.app .
 ```
 
-Check whether upstream has changed:
-
-```bash
-python3 /Users/gosu/.codex/skills/design-md/scripts/update_upstream.py --check
-python3 /Users/gosu/.codex/skills/design-md/scripts/update_frontend_design.py --check
-```
-
-`--check` prints JSON and exits with code `2` when an update is available, so automation can distinguish "changed" from "failed".
-
-Refresh the bundled style references from upstream:
-
-```bash
-python3 /Users/gosu/.codex/skills/design-md/scripts/update_upstream.py
-python3 /Users/gosu/.codex/skills/design-md/scripts/update_frontend_design.py
-```
-
-Run the repository automation locally:
-
-```bash
-python3 /Users/gosu/.codex/skills/design-md/scripts/auto_update.py --commit --push
-```
-
-After updating upstream references, run:
+After changing the skill locally, run:
 
 ```bash
 python3 /Users/gosu/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/gosu/.codex/skills/design-md
 python3 /Users/gosu/.codex/skills/design-md/scripts/list_styles.py | head
 ```
+
+Upstream reference maintenance is handled by GitHub Actions only.

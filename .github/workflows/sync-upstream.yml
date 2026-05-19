@@ -24,7 +24,151 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Update bundled design references
+      - name: Sync upstream references online
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 scripts/auto_update.py --commit --push
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          timestamp() {
+            date -u +"%Y-%m-%dT%H:%M:%SZ"
+          }
+
+          sync_design_md() {
+            local repo="https://github.com/VoltAgent/awesome-design-md.git"
+            local ref="HEAD"
+            local latest current temp count updated_at
+
+            latest="$(git ls-remote "$repo" "$ref" | awk '{print $1}')"
+            if [[ -z "$latest" ]]; then
+              echo "No remote ref found: $repo $ref" >&2
+              exit 1
+            fi
+
+            current="$(jq -r '.commit // empty' references/upstream-version.json 2>/dev/null || true)"
+            if [[ "$current" == "$latest" ]]; then
+              echo "DESIGN.md references: already up to date."
+              return
+            fi
+
+            temp="$(mktemp -d)"
+            git clone --depth=1 "$repo" "$temp/repo"
+            latest="$(git -C "$temp/repo" rev-parse HEAD)"
+
+            rm -rf references/design-md
+            cp -R "$temp/repo/design-md" references/design-md
+            if [[ -f "$temp/repo/LICENSE" ]]; then
+              cp "$temp/repo/LICENSE" references/upstream-license.txt
+            fi
+            if [[ -f "$temp/repo/README.md" ]]; then
+              cp "$temp/repo/README.md" references/upstream-readme.md
+            fi
+
+            count="$(find references/design-md -mindepth 2 -maxdepth 2 -name DESIGN.md | wc -l | tr -d ' ')"
+            updated_at="$(timestamp)"
+            jq -n \
+              --arg repository "$repo" \
+              --arg ref "$ref" \
+              --arg commit "$latest" \
+              --arg updated_at "$updated_at" \
+              --argjson design_md_count "$count" \
+              '{
+                commit: $commit,
+                design_md_count: $design_md_count,
+                ref: $ref,
+                repository: $repository,
+                updated_at: $updated_at
+              }' > references/upstream-version.json
+
+            echo "Updated DESIGN.md references to $latest ($count styles)."
+            rm -rf "$temp"
+          }
+
+          sync_frontend_design() {
+            local repo="anthropics/claude-code"
+            local ref="main"
+            local source_path="plugins/frontend-design/skills/frontend-design/SKILL.md"
+            local api_url response latest current source_url updated_at
+
+            api_url="https://api.github.com/repos/$repo/contents/$source_path?ref=$ref"
+            response="$(
+              curl -fsSL \
+                -H "Accept: application/vnd.github+json" \
+                -H "Authorization: Bearer $GITHUB_TOKEN" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                "$api_url"
+            )"
+            latest="$(jq -r '.sha' <<<"$response")"
+            if [[ -z "$latest" || "$latest" == "null" ]]; then
+              echo "No frontend-design blob sha found." >&2
+              exit 1
+            fi
+
+            current="$(jq -r '.blob_sha // empty' references/frontend-design/upstream-version.json 2>/dev/null || true)"
+            if [[ "$current" == "$latest" ]]; then
+              echo "frontend-design reference: already up to date."
+              return
+            fi
+
+            mkdir -p references/frontend-design
+            jq -r '.content' <<<"$response" | base64 -d > references/frontend-design/SKILL.md
+            source_url="$(jq -r '.html_url' <<<"$response")"
+            updated_at="$(timestamp)"
+            jq -n \
+              --arg repository "https://github.com/$repo.git" \
+              --arg ref "$ref" \
+              --arg source_path "$source_path" \
+              --arg source_url "$source_url" \
+              --arg blob_sha "$latest" \
+              --arg updated_at "$updated_at" \
+              '{
+                blob_sha: $blob_sha,
+                ref: $ref,
+                repository: $repository,
+                source_path: $source_path,
+                source_url: $source_url,
+                updated_at: $updated_at
+              }' > references/frontend-design/upstream-version.json
+
+            echo "Updated frontend-design reference to $latest."
+          }
+
+          validate_references() {
+            test -f SKILL.md
+            test -f agents/openai.yaml
+            test -f references/upstream-version.json
+            test -f references/frontend-design/SKILL.md
+            test -f references/frontend-design/upstream-version.json
+            test -f references/upstream-license.txt
+            test -f references/upstream-readme.md
+
+            grep -q '^name: design-md$' SKILL.md
+            grep -q '^name: frontend-design$' references/frontend-design/SKILL.md
+
+            local count recorded_count source_path
+            count="$(find references/design-md -mindepth 2 -maxdepth 2 -name DESIGN.md | wc -l | tr -d ' ')"
+            recorded_count="$(jq -r '.design_md_count' references/upstream-version.json)"
+            if [[ "$count" != "$recorded_count" ]]; then
+              echo "DESIGN.md count mismatch: $recorded_count != $count" >&2
+              exit 1
+            fi
+
+            source_path="$(jq -r '.source_path' references/frontend-design/upstream-version.json)"
+            if [[ "$source_path" != "plugins/frontend-design/skills/frontend-design/SKILL.md" ]]; then
+              echo "frontend-design source_path mismatch: $source_path" >&2
+              exit 1
+            fi
+          }
+
+          sync_design_md
+          sync_frontend_design
+          validate_references
+
+          if [[ -n "$(git status --porcelain references/design-md references/upstream-license.txt references/upstream-readme.md references/upstream-version.json references/frontend-design)" ]]; then
+            git add references/design-md references/upstream-license.txt references/upstream-readme.md references/upstream-version.json references/frontend-design
+            git commit -m "Update bundled design references"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          else
+            echo "No upstream update available; validation passed."
+          fi
