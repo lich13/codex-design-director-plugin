@@ -1,11 +1,11 @@
 ---
 name: design-md
-description: Apply curated DESIGN.md visual design directions to frontend projects. Use when the user asks to improve, restyle, redesign, modernize, polish, or choose a visual direction for a web/app frontend using DESIGN.md, awesome-design-md, Vercel/Linear/Stripe/Supabase/Raycast/etc. inspired styling, or project-level UI design guidance for Codex.
+description: Apply curated DESIGN.md visual directions and frontend-design execution guidance to frontend projects. Use when the user asks to build, improve, restyle, redesign, modernize, polish, or choose a visual direction for a web/app frontend using DESIGN.md, awesome-design-md, Claude, Vercel, Linear, Stripe, Supabase, Raycast, or similar product-style references.
 ---
 
 # Design MD
 
-Use this skill to turn the bundled `awesome-design-md` design directions into practical frontend changes or a project-local `DESIGN.md`.
+Use this skill to turn bundled `awesome-design-md` directions and the bundled `frontend-design` execution guide into practical frontend changes or a project-local `DESIGN.md`.
 
 ## Core Rules
 
@@ -21,29 +21,34 @@ Use this skill to turn the bundled `awesome-design-md` design directions into pr
    - Read `AGENTS.md`, existing `DESIGN.md`, package files, theme files, Tailwind/CSS config, and representative components/pages.
    - If an existing project `DESIGN.md` exists, treat it as authoritative unless the user asks to replace it.
 
-2. Choose or confirm a design direction.
+2. Load execution guidance for frontend implementation.
+   - For build, redesign, modernization, polish, or visually driven frontend work, read `references/frontend-design/SKILL.md`.
+   - Use it as execution guidance for distinctive, production-grade frontend decisions; keep this skill's core rules and the project constraints as higher-priority boundaries.
+
+3. Choose or confirm a design direction.
    - If the user names a style slug such as `vercel`, `linear.app`, `stripe`, `supabase`, or `raycast`, use that style.
+   - If the user asks for Claude style, use the `claude` style.
    - If the user describes the product but does not choose a style, run `scripts/list_styles.py` and choose a fit based on product category and UI density.
    - For SaaS dashboards and internal tools, prefer restrained product systems such as `linear.app`, `vercel`, `supabase`, `stripe`, `raycast`, `resend`, `sentry`, `clickhouse`, or `hashicorp`.
    - For consumer, editorial, or branded marketing pages, consider `apple`, `airbnb`, `nike`, `notion`, `spotify`, `theverge`, or `wired`.
 
-3. Load only the needed reference.
+4. Load only the needed style reference.
    - Read `references/design-md/<slug>/DESIGN.md`.
    - Use the color, typography, spacing, component, layout, responsive, and do/don't sections as the design brief.
    - Do not load every bundled `DESIGN.md` into context.
 
-4. Apply the direction.
+5. Apply the direction.
    - Map colors to semantic tokens rather than scattering raw hex values through components.
    - Translate typography to available fonts or safe fallbacks; do not add paid/proprietary fonts unless the project already has them.
    - Keep component states complete: hover, focus, disabled, selected, loading, error, and responsive behavior where relevant.
    - Use real product/page content and existing data. Avoid generic marketing filler unless creating a placeholder prototype.
 
-5. Optionally install a project-local `DESIGN.md`.
+6. Optionally install a project-local `DESIGN.md`.
    - Use `scripts/apply_design_md.py <slug> <project-root>` to copy a selected design into the project root.
    - If a project `DESIGN.md` already exists, back it up or require `--force` only when replacing is intended.
    - Add a short `AGENTS.md` note instructing future Codex runs to read `DESIGN.md` before frontend visual work when useful.
 
-6. Verify.
+7. Verify.
    - Run available lint/type/test commands when the frontend stack supports them.
    - Start the dev server for substantial visual work.
    - Inspect desktop and mobile renderings; fix overlap, clipping, unreadable contrast, broken responsive layout, and console errors.
@@ -53,10 +58,13 @@ Use this skill to turn the bundled `awesome-design-md` design directions into pr
 - `references/design-md/`: Local copy of the upstream style folders. Each style has a `DESIGN.md`; some also include a README.
 - `references/upstream-version.json`: Current upstream repository, ref, commit, update time, and bundled style count.
 - `references/upstream-license.txt`: MIT license from the upstream collection.
+- `references/frontend-design/SKILL.md`: Anthropic's `frontend-design` execution guidance.
+- `references/frontend-design/upstream-version.json`: Current upstream path, ref, update time, and blob SHA for `frontend-design`.
 - `scripts/list_styles.py`: Lists available style slugs and short descriptions.
 - `scripts/apply_design_md.py`: Copies a selected bundled `DESIGN.md` into a project root.
 - `scripts/update_upstream.py`: Checks or refreshes bundled references from the upstream repository.
-- `scripts/auto_update.py`: Updates, validates, commits, and pushes upstream reference changes for repository automation.
+- `scripts/update_frontend_design.py`: Checks or refreshes the bundled `frontend-design` guidance.
+- `scripts/auto_update.py`: Updates, validates, commits, and pushes all upstream reference changes for repository automation.
 - `.github/workflows/sync-upstream.yml`: GitHub Actions workflow that runs the upstream sync on a schedule and by manual dispatch.
 
 ## Useful Commands
@@ -83,6 +91,7 @@ Check whether upstream has changed:
 
 ```bash
 python3 /Users/gosu/.codex/skills/design-md/scripts/update_upstream.py --check
+python3 /Users/gosu/.codex/skills/design-md/scripts/update_frontend_design.py --check
 ```
 
 `--check` prints JSON and exits with code `2` when an update is available, so automation can distinguish "changed" from "failed".
@@ -91,6 +100,7 @@ Refresh the bundled style references from upstream:
 
 ```bash
 python3 /Users/gosu/.codex/skills/design-md/scripts/update_upstream.py
+python3 /Users/gosu/.codex/skills/design-md/scripts/update_frontend_design.py
 ```
 
 Run the repository automation locally:

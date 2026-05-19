@@ -1,4 +1,4 @@
-name: Sync upstream DESIGN.md references
+name: Sync design upstream references
 
 on:
   workflow_dispatch:
@@ -7,6 +7,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: sync-design-upstream-references
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -20,5 +24,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Update bundled DESIGN.md references
+      - name: Update bundled design references
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: python3 scripts/auto_update.py --commit --push

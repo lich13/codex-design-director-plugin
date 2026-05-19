@@ -1,4 +1,4 @@
 interface:
   display_name: "Design MD"
-  short_description: "Apply curated DESIGN.md UI directions"
-  default_prompt: "Use $design-md to choose a suitable UI design direction and improve this project frontend."
+  short_description: "Apply DESIGN.md styles with frontend-design guidance"
+  default_prompt: "Use $design-md to choose a suitable UI design direction, apply frontend-design guidance, and improve this project frontend."

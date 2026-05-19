@@ -7,7 +7,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION_FILE = ROOT / "references" / "upstream-version.json"
+DESIGN_VERSION_FILE = ROOT / "references" / "upstream-version.json"
+FRONTEND_VERSION_FILE = ROOT / "references" / "frontend-design" / "upstream-version.json"
 
 
 def run(cmd: list[str], cwd: Path = ROOT, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -44,11 +45,19 @@ def validate() -> None:
     if not design_files:
         raise SystemExit("No bundled DESIGN.md files found")
 
-    version = json.loads(VERSION_FILE.read_text(encoding="utf-8"))
+    version = json.loads(DESIGN_VERSION_FILE.read_text(encoding="utf-8"))
     if version.get("design_md_count") != len(design_files):
         raise SystemExit(
             f"upstream-version.json count mismatch: {version.get('design_md_count')} != {len(design_files)}"
         )
+
+    frontend_skill = ROOT / "references" / "frontend-design" / "SKILL.md"
+    frontend_version = json.loads(FRONTEND_VERSION_FILE.read_text(encoding="utf-8"))
+    frontend_text = frontend_skill.read_text(encoding="utf-8")
+    if "name: frontend-design" not in frontend_text:
+        raise SystemExit("frontend-design reference must contain name: frontend-design")
+    if frontend_version.get("source_path") != "plugins/frontend-design/skills/frontend-design/SKILL.md":
+        raise SystemExit("frontend-design upstream-version.json has the wrong source_path")
 
     run([sys.executable, "-m", "py_compile", *[str(path) for path in sorted((ROOT / "scripts").glob("*.py"))]])
 
@@ -62,28 +71,42 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Check upstream, update bundled DESIGN.md references, validate, and optionally commit/push.")
     parser.add_argument("--commit", action="store_true", help="commit changes when upstream updates")
     parser.add_argument("--push", action="store_true", help="push committed changes")
-    parser.add_argument("--message", default="Update bundled DESIGN.md references", help="commit message")
+    parser.add_argument("--message", default="Update bundled design references", help="commit message")
     args = parser.parse_args()
 
-    before = json.loads(VERSION_FILE.read_text(encoding="utf-8")).get("commit")
-    check = run([sys.executable, str(ROOT / "scripts" / "update_upstream.py"), "--check"], check=False)
-    if check.returncode == 0:
-        validate()
-        print("No upstream update available; validation passed.")
-        return 0
-    if check.returncode != 2:
-        sys.stderr.write(check.stdout)
-        sys.stderr.write(check.stderr)
-        return check.returncode
+    updates = []
+    for label, script in (
+        ("DESIGN.md references", "update_upstream.py"),
+        ("frontend-design reference", "update_frontend_design.py"),
+    ):
+        check = run([sys.executable, str(ROOT / "scripts" / script), "--check"], check=False)
+        if check.returncode == 0:
+            print(f"{label}: already up to date.")
+            continue
+        if check.returncode != 2:
+            sys.stderr.write(check.stdout)
+            sys.stderr.write(check.stderr)
+            return check.returncode
+        run([sys.executable, str(ROOT / "scripts" / script)])
+        updates.append(label)
 
-    run([sys.executable, str(ROOT / "scripts" / "update_upstream.py")])
     validate()
 
-    after = json.loads(VERSION_FILE.read_text(encoding="utf-8")).get("commit")
-    print(f"Updated upstream references: {before} -> {after}")
+    if updates:
+        print("Updated upstream references: " + ", ".join(updates))
+    else:
+        print("No upstream update available; validation passed.")
 
     if args.commit and git_has_changes():
-        run(["git", "add", "references/design-md", "references/upstream-license.txt", "references/upstream-readme.md", "references/upstream-version.json"])
+        run([
+            "git",
+            "add",
+            "references/design-md",
+            "references/upstream-license.txt",
+            "references/upstream-readme.md",
+            "references/upstream-version.json",
+            "references/frontend-design",
+        ])
         run(["git", "commit", "-m", args.message])
     elif args.commit:
         print("No git changes to commit.")
