@@ -28,7 +28,7 @@ Use this skill to turn bundled `awesome-design-md` directions and the bundled `f
 3. Choose or confirm a design direction.
    - If the user names a style slug such as `vercel`, `linear.app`, `stripe`, `supabase`, or `raycast`, use that style.
    - If the user asks for Claude style, use the `claude` style.
-   - If the user describes the product but does not choose a style, run `scripts/list_styles.py` and choose a fit based on product category and UI density.
+   - If the user describes the product but does not choose a style, inspect the folders under `references/design-md/` and choose a fit based on product category and UI density.
    - For SaaS dashboards and internal tools, prefer restrained product systems such as `linear.app`, `vercel`, `supabase`, `stripe`, `raycast`, `resend`, `sentry`, `clickhouse`, or `hashicorp`.
    - For consumer, editorial, or branded marketing pages, consider `apple`, `airbnb`, `nike`, `notion`, `spotify`, `theverge`, or `wired`.
 
@@ -44,7 +44,7 @@ Use this skill to turn bundled `awesome-design-md` directions and the bundled `f
    - Use real product/page content and existing data. Avoid generic marketing filler unless creating a placeholder prototype.
 
 6. Optionally install a project-local `DESIGN.md`.
-   - Use `scripts/apply_design_md.py <slug> <project-root>` to copy a selected design into the project root.
+   - Copy `references/design-md/<slug>/DESIGN.md` into the project root as `DESIGN.md`.
    - If a project `DESIGN.md` already exists, back it up or require `--force` only when replacing is intended.
    - Add a short `AGENTS.md` note instructing future Codex runs to read `DESIGN.md` before frontend visual work when useful.
 
@@ -60,35 +60,7 @@ Use this skill to turn bundled `awesome-design-md` directions and the bundled `f
 - `references/upstream-license.txt`: MIT license from the upstream collection.
 - `references/frontend-design/SKILL.md`: Anthropic's `frontend-design` execution guidance.
 - `references/frontend-design/upstream-version.json`: Current upstream path, ref, update time, and blob SHA for `frontend-design`.
-- `scripts/list_styles.py`: Lists available style slugs and short descriptions.
-- `scripts/apply_design_md.py`: Copies a selected bundled `DESIGN.md` into a project root.
 - `.github/workflows/sync-upstream.yml`: GitHub Actions workflow with inline online sync logic for `awesome-design-md` and `frontend-design`.
+- `Update Design MD Skill.command`: macOS double-click updater for pulling the installed skill to the latest `origin/main`.
 
-## Useful Commands
-
-List available styles:
-
-```bash
-python3 /Users/gosu/.codex/skills/design-md/scripts/list_styles.py
-```
-
-Search styles:
-
-```bash
-python3 /Users/gosu/.codex/skills/design-md/scripts/list_styles.py --search dashboard
-```
-
-Install one style into the current project:
-
-```bash
-python3 /Users/gosu/.codex/skills/design-md/scripts/apply_design_md.py linear.app .
-```
-
-After changing the skill locally, run:
-
-```bash
-python3 /Users/gosu/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/gosu/.codex/skills/design-md
-python3 /Users/gosu/.codex/skills/design-md/scripts/list_styles.py | head
-```
-
-Upstream reference maintenance is handled by GitHub Actions only.
+Upstream reference maintenance is handled by GitHub Actions only; this skill has no local Python maintenance scripts.
