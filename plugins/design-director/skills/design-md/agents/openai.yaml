@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Director"
+  short_description: "Route frontend design work across DESIGN.md, Claude Design, and popular web design references"
+  default_prompt: "Use $design-director to choose the right UI design direction and workflow for this project."

@@ -1,0 +1,43 @@
+{
+  "name": "design-director",
+  "version": "0.1.1",
+  "description": "Automatically choose and apply DESIGN.md, Claude Design, popular web design, and frontend-design guidance for Codex frontend work.",
+  "author": {
+    "name": "lich13",
+    "url": "https://github.com/lich13"
+  },
+  "homepage": "https://github.com/lich13/codex-design-md-skill",
+  "repository": "https://github.com/lich13/codex-design-md-skill",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "frontend",
+    "design-md",
+    "claude-design",
+    "popular-web-designs",
+    "ui"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Design Director",
+    "shortDescription": "Route frontend design work to the right visual system and workflow",
+    "longDescription": "Design Director combines curated DESIGN.md references, Claude Design workflow guidance, popular web design templates, and frontend-design execution rules. It helps Codex choose an appropriate visual direction for dashboards, landing pages, prototypes, redesigns, and project-level DESIGN.md files while preserving licensing and brand-safety boundaries.",
+    "developerName": "lich13",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/lich13/codex-design-md-skill",
+    "privacyPolicyURL": "https://github.com/lich13/codex-design-md-skill",
+    "termsOfServiceURL": "https://github.com/lich13/codex-design-md-skill",
+    "defaultPrompt": [
+      "Use Design Director to choose a UI direction for this project.",
+      "Create a DESIGN.md for this frontend.",
+      "Design a landing page using a suitable visual reference."
+    ],
+    "brandColor": "#111827",
+    "screenshots": []
+  }
+}

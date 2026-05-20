@@ -1,0 +1,33 @@
+name: Validate plugin
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate JSON manifests
+        run: |
+          python3 -m json.tool .agents/plugins/marketplace.json >/dev/null
+          python3 -m json.tool plugins/design-director/.codex-plugin/plugin.json >/dev/null
+
+      - name: Validate plugin references
+        run: python3 plugins/design-director/scripts/validate-references.py
+
+      - name: Smoke deterministic design picker
+        run: |
+          python3 plugins/design-director/scripts/list-design-sources.py --json >/tmp/design-sources.json
+          python3 plugins/design-director/scripts/pick-design-direction.py --deliverable app "data dense SaaS operations dashboard" >/tmp/pick.json
+          python3 -m json.tool /tmp/design-sources.json >/dev/null
+          python3 -m json.tool /tmp/pick.json >/dev/null

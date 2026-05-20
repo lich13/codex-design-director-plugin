@@ -2,11 +2,10 @@
   "commit": "3883984baf05226208a5dae15730a3593548b808",
   "design_md_count": 71,
   "license": "MIT",
-  "license_path": "LICENSE",
-  "license_url": "https://github.com/VoltAgent/awesome-design-md/blob/main/LICENSE",
+  "license_file": "licenses/VoltAgent-awesome-design-md-MIT.txt",
+  "name": "awesome-design-md",
   "ref": "HEAD",
   "repository": "https://github.com/VoltAgent/awesome-design-md.git",
   "source_path": "design-md",
-  "source_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md",
   "updated_at": "2026-05-20T02:37:30Z"
 }

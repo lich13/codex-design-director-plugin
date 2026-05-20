@@ -1,0 +1,44 @@
+name: Sync upstream design references
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 19 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-design-upstream-references
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Sync upstream references
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 plugins/design-director/scripts/sync-upstreams.py
+
+      - name: Validate plugin
+        run: python3 plugins/design-director/scripts/validate-references.py
+
+      - name: Commit updates
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain plugins/design-director/references plugins/design-director/licenses)" ]]; then
+            git add plugins/design-director/references plugins/design-director/licenses
+            git commit -m "Update bundled design references"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          else
+            echo "No upstream update available; validation passed."
+          fi
