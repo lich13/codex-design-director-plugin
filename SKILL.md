@@ -64,6 +64,4 @@ Use this skill to turn bundled `awesome-design-md` directions and the bundled `f
 - `.agents/plugins/marketplace.json`: Codex marketplace entry for the `design-director` plugin.
 - `.github/workflows/sync-upstreams.yml`: GitHub Actions workflow for `awesome-design-md`, `frontend-design`, and Hermes design skills.
 - `.github/workflows/validate-plugin.yml`: GitHub Actions workflow for plugin and reference validation.
-- `Update Design Director Plugin.command`: macOS double-click updater for pulling the installed plugin repository to the latest `origin/main`.
-
 Upstream reference maintenance is handled by GitHub Actions and the plugin scripts under `plugins/design-director/scripts/`.
