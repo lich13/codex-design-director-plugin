@@ -13,7 +13,7 @@ It combines:
 ## Install
 
 ```bash
-codex plugin marketplace add lich13/codex-design-md-skill
+codex plugin marketplace add lich13/codex-design-director-plugin
 ```
 
 If the marketplace already exists:

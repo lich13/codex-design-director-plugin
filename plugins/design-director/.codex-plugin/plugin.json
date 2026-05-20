@@ -1,13 +1,13 @@
 {
   "name": "design-director",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Automatically choose and apply DESIGN.md, Claude Design, popular web design, and frontend-design guidance for Codex frontend work.",
   "author": {
     "name": "lich13",
     "url": "https://github.com/lich13"
   },
-  "homepage": "https://github.com/lich13/codex-design-md-skill",
-  "repository": "https://github.com/lich13/codex-design-md-skill",
+  "homepage": "https://github.com/lich13/codex-design-director-plugin",
+  "repository": "https://github.com/lich13/codex-design-director-plugin",
   "license": "MIT",
   "keywords": [
     "design",
@@ -29,9 +29,9 @@
       "Read",
       "Write"
     ],
-    "websiteURL": "https://github.com/lich13/codex-design-md-skill",
-    "privacyPolicyURL": "https://github.com/lich13/codex-design-md-skill",
-    "termsOfServiceURL": "https://github.com/lich13/codex-design-md-skill",
+    "websiteURL": "https://github.com/lich13/codex-design-director-plugin",
+    "privacyPolicyURL": "https://github.com/lich13/codex-design-director-plugin",
+    "termsOfServiceURL": "https://github.com/lich13/codex-design-director-plugin",
     "defaultPrompt": [
       "Use Design Director to choose a UI direction for this project.",
       "Create a DESIGN.md for this frontend.",

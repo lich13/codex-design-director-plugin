@@ -19,7 +19,7 @@ trap finish EXIT
 
 cd "$(dirname "$0")"
 
-echo "Updating Design MD skill..."
+echo "Updating Design Director plugin..."
 
 if ! command -v git >/dev/null 2>&1; then
   echo "Git is not installed or not available in PATH."
@@ -27,7 +27,7 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 if [[ ! -d .git ]]; then
-  echo "This updater must be inside the codex-design-md-skill git checkout."
+  echo "This updater must be inside the codex-design-director-plugin git checkout."
   exit 1
 fi
 
@@ -37,7 +37,7 @@ git fetch --prune origin main
 
 stashed=0
 if [[ -n "$(git status --porcelain)" ]]; then
-  stash_name="auto-stash before design-md skill update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  stash_name="auto-stash before design-director plugin update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "Saving local changes to git stash: $stash_name"
   git stash push -u -m "$stash_name"
   stashed=1
@@ -58,7 +58,7 @@ else
 fi
 
 echo
-echo "Design MD skill is up to date."
+echo "Design Director plugin is up to date."
 echo "Current commit: $(git rev-parse --short HEAD)"
 
 if [[ "$stashed" == "1" ]]; then
@@ -68,4 +68,4 @@ if [[ "$stashed" == "1" ]]; then
 fi
 
 echo
-echo "Open a new Codex thread, or restart Codex App if this skill was already loaded."
+echo "Open a new Codex thread, or restart Codex App if this plugin was already loaded."
