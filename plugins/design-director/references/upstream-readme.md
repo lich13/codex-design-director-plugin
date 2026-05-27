@@ -1,3 +1,4 @@
+
 <a href="https://github.com/VoltAgent/voltagent">
      <img width="1500"  alt="claude-skills" src="https://github.com/user-attachments/assets/d012a0d2-cec3-4630-ba5e-acc339dbe6cf" />
 </a>
@@ -39,15 +40,48 @@ It's just a markdown file. No Figma exports, no JSON schemas, no special tooling
 | `AGENTS.md` | Coding agents | How to build the project |
 | `DESIGN.md` | Design agents | How the project should look and feel |
 
-**This repo provides ready-to-use DESIGN.md files** extracted from real websites.
+**This repo provides ready-to-use DESIGN.md files** extracted from real websites. 
 
 ## Request a DESIGN.md
 
 You can [request a DESIGN.md](https://getdesign.md/request) for specific website, including private requests delivered exclusively to you.
 
-## Sponsors ❤️
+## AI Design + Build Ecosystem Tools
 
-Become a Sponsor [1M+ view] — your logo here and get listed on [getdesign.md](https://getdesign.md/)
+Tools, platforms, and services for designing and shipping web apps with AI.
+
+ - If you're building AI agents in TypeScript, VoltAgent gives you tool use, memory, and multi-agent coordination out of the box.
+
+    <a href="https://github.com/VoltAgent/voltagent">
+    <img height="80" alt="voltagent-banner" src="https://github.com/user-attachments/assets/7196f50b-ca98-494c-8aa0-11e111c49f96" />
+    </a>
+
+ 
+<br/>
+
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="100%">
+
+<h4>👉 Feature your product alongside the developers, designers, and vibecoders shipping UI with AI coding agents and web builders.</h4>
+
+<sub>Ranked #150 globally on GitHub. A community resource used by developers, designers, and vibecoders.</sub>
+
+<a href="https://sponsors.voltagent.dev/#awesome-design-md"><img src="https://img.shields.io/badge/📩_Become_a_Sponsor-Contact_Us-blue?style=for-the-badge&logoColor=white" alt="Become a Sponsor" /></a>
+
+
+</td>
+</tr>
+</table>
+
+</div>
+
+
+
+
+
 
 ## Collection
 
