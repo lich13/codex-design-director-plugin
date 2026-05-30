@@ -17,7 +17,7 @@
 <div align="center">
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-![DESIGN.md Count](https://img.shields.io/badge/DESIGN.md%20count-73-10b981?style=classic)
+![DESIGN.md Count](https://img.shields.io/badge/DESIGN.md%20count-72-10b981?style=classic)
 [![Last Update](https://img.shields.io/github/last-commit/VoltAgent/awesome-design-md?label=Last%20update&style=classic)](https://github.com/VoltAgent/awesome-design-md)
 [![Discord](https://img.shields.io/discord/1361559153780195478.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://s.voltagent.dev/discord)
 
@@ -185,10 +185,16 @@ Tools, platforms, and services for designing and shipping web apps with AI.
 - [**Renault**](https://getdesign.md/renault/design-md) - French automotive. Vivid aurora gradients, NouvelR proprietary typeface, zero-radius buttons
 - [**Tesla**](https://getdesign.md/tesla/design-md) - Electric vehicles. Radical subtraction, cinematic full-viewport photography, Universal Sans
 
+### Retro Web · DESIGN.md Nostalgia
+
+A Saturday series — DESIGN.md files extracted from the web of the 1990s. Drop one in and tell your AI agent to build a period-accurate vintage UI.
+
+- [**Dell (1996)**](https://getdesign.md/dell-1996/design-md) - Catalog-era enterprise web. Literal black page frame, flat color-block "ribbon cards", chunky Helvetica-Black titles over Times Roman body, and hand-cut GIF stickers (NEW! bursts, award seals, beveled product photos).
+
 
 ## What's Inside Each DESIGN.md
 
-Every file follows the [Stitch DESIGN.md format](https://stitch.withgoogle.com/docs/design-md/format/) with extended sections:
+Every file follows the [Stitch DESIGN.md format](https://stitch.withgoogle.com/docs/design-md/specification/) with extended sections:
 
 | # | Section | What it captures |
 |---|---------|-----------------|
