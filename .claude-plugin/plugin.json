@@ -1,0 +1,21 @@
+{
+  "name": "design-director",
+  "version": "0.1.25",
+  "description": "Automatically choose and apply DESIGN.md, Claude Design, popular web design, and frontend-design guidance for frontend work.",
+  "author": {
+    "name": "lich13",
+    "url": "https://github.com/lich13"
+  },
+  "homepage": "https://github.com/lich13/codex-design-director-plugin",
+  "repository": "https://github.com/lich13/codex-design-director-plugin",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "frontend",
+    "design-md",
+    "claude-design",
+    "popular-web-designs",
+    "ui"
+  ],
+  "skills": "./plugins/design-director/skills/"
+}
