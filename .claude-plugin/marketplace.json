@@ -1,20 +1,21 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "lich13-design",
-  "interface": {
-    "displayName": "lich13 Design Plugins"
+  "description": "Design Director plugin combining DESIGN.md, Claude Design, popular web designs, and frontend-design execution guidance",
+  "owner": {
+    "name": "lich13",
+    "email": "gosu@example.com"
   },
   "plugins": [
     {
       "name": "design-director",
-      "source": {
-        "source": "local",
-        "path": "."
+      "description": "Automatically choose and apply DESIGN.md, Claude Design, popular web design, and frontend-design guidance for frontend work",
+      "author": {
+        "name": "lich13"
       },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Coding"
+      "category": "design",
+      "source": ".",
+      "homepage": "https://github.com/lich13/codex-design-director-plugin"
     }
   ]
 }
