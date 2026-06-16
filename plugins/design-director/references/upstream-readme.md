@@ -54,7 +54,7 @@ You can [request a DESIGN.md](https://getdesign.md/request) for specific website
 <br/>
 
 <a href="https://launchkit.getdesign.md/">
-<img src="https://cdn.voltagent.dev/awesome-repo/launchkit-banner-1.png" alt="launchkit"  /><br/>
+<img src="https://cdn.voltagent.dev/awesome-repo/launchkit-banner-3.png" alt="launchkit"  /><br/>
 </a>
 
 <br/>
