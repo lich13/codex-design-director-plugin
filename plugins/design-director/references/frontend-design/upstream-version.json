@@ -1,8 +1,8 @@
 {
-  "blob_sha": "600b6db41fac7e2081c7528ec6982960892c819d",
+  "blob_sha": "decdff43d05908b4c1fc2cfd2d80fc5743440934",
   "ref": "main",
   "repository": "https://github.com/anthropics/claude-code.git",
   "source_path": "plugins/frontend-design/skills/frontend-design/SKILL.md",
   "source_url": "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md",
-  "updated_at": "2026-05-20T02:40:34Z"
+  "updated_at": "2026-06-18T21:27:54Z"
 }
