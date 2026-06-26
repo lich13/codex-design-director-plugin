@@ -1,6 +1,6 @@
 {
   "name": "design-director",
-  "version": "0.1.40",
+  "version": "0.1.41",
   "description": "Automatically choose and apply DESIGN.md, Claude Design, popular web design, and frontend-design guidance for Codex frontend work.",
   "author": {
     "name": "lich13",
