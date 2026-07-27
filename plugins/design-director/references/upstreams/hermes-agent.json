@@ -1,7 +1,7 @@
 {
   "claude_design_blob": "d67fa6ce1bad06f97330dcfe480f57dc81e247a8",
   "claude_design_path": "skills/creative/claude-design/SKILL.md",
-  "commit": "588b7059a8b57b0e3dea98b480048eb7199ce0b6",
+  "commit": "3be565fbdee3115ab5b9338551768b8e5e655c56",
   "license": "MIT",
   "license_file": "licenses/NousResearch-hermes-agent-MIT.txt",
   "name": "hermes-agent",
@@ -12,5 +12,5 @@
   "popular_web_designs_path": "skills/creative/popular-web-designs/SKILL.md",
   "ref": "HEAD",
   "repository": "https://github.com/NousResearch/hermes-agent.git",
-  "updated_at": "2026-07-26T20:16:55Z"
+  "updated_at": "2026-07-27T20:42:29Z"
 }
