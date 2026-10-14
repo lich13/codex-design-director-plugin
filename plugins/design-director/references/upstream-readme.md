@@ -49,33 +49,7 @@ It's just a markdown file. No Figma exports, no JSON schemas, no special tooling
 
 You can [request a DESIGN.md](https://getdesign.md/request) for specific website, including private requests delivered exclusively to you.
 
-## AI Design + Build Ecosystem Tools
 
-
-<br/>
-
-You ship products with AI, but every launch still dies quietly because nobody posts about it. [EveryFeed](https://everyfeed.ai/) plugs your AI assistant into a social workspace that drafts, schedules, and publishes across 35+ channels — no agency, no marketing hire.
-
-<a href="https://everyfeed.ai/">
-<img src="https://cdn.voltagent.dev/awesome-repo/everyfeed-social.png" alt="everyfeed"  /><br/>
-</a>
-
-<br/>
-
-
-
-<a href="https://launchkit.getdesign.md/">
-<img src="https://cdn.voltagent.dev/awesome-repo/website-starter-kit-banner-dark-0315e5f9c1.png" alt="launchkit"  /><br/>
-</a>
-
-<br/>
-
-
-<a href="https://mobile-starterkit.getdesign.md/">
-<img src="https://cdn.voltagent.dev/awesome-repo/mobile-starter-kit-banner-light-450ba0a9b0.png" alt="mobilekit"  /><br/>
-</a>
-
-<br/>
 
 <div align="center">
 
